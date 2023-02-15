@@ -61,7 +61,7 @@ export async function action({ request, params }) {
 
     const taskData = {
         description: data.get('description'),
-        completed: true
+        completed: data.get('completed')
     };
 
     console.log(JSON.stringify(taskData))

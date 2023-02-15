@@ -14,7 +14,7 @@ function TasksList({tasks}) {
           <li key={task._id} className={classes.item}>
             <Link to={`/tasks/${task._id}`}>
               <div className={classes.content}>
-                <h2>{task.description}</h2>
+                <h2>{`${task.description} (${task.completed ? 'Done' : 'Not Done'})`}</h2>
               </div>
             </Link>
           </li>
