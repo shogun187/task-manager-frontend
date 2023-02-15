@@ -64,8 +64,10 @@ export async function action({ request, params }) {
 
   const taskData = {
     description: data.get('description'),
-    completed: data.get('completed')
+    completed: 'true'
   };
+
+  console.log(taskData)
 
   let url = 'https://shaugn-task-manager.herokuapp.com/tasks';
 
@@ -75,6 +77,7 @@ export async function action({ request, params }) {
   }
 
   const token = getAuthToken();
+  console.log(`token is ${token}`)
   const response = await fetch(url, {
     method: method,
     headers: {
@@ -84,6 +87,7 @@ export async function action({ request, params }) {
   });
 
   if (response.status === 400) {
+    console.log(response)
     return response;
   }
 

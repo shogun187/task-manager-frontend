@@ -49,16 +49,14 @@ const router = createBrowserRouter([
               {
                 path: 'edit',
                 element: <EditTaskPage />,
-                action: manipulateTaskAction,
-                loader: checkAuthLoader,
+                action: manipulateTaskAction
               },
             ],
           },
           {
             path: 'new',
             element: <NewTaskPage />,
-            action: manipulateTaskAction,
-            loader: checkAuthLoader,
+            action: manipulateTaskAction
           },
         ],
       },
