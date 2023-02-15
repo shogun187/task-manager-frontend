@@ -34,7 +34,6 @@ export default TaskDetailPage;
 
 async function loadTask(id) {
   const token = getAuthToken()
-  console.log(id)
   const response = await fetch('https://shaugn-task-manager.herokuapp.com/tasks/' + id, {
     method: 'GET',
     headers: {'Authorization' : 'Bearer ' + token}
@@ -49,7 +48,7 @@ async function loadTask(id) {
     );
   } else {
     const resData = await response.json();
-    return resData.task;
+    return resData;
   }
 }
 
@@ -73,7 +72,7 @@ async function loadTasks() {
     );
   } else {
     const resData = await response.json();
-    return resData.tasks;
+    return resData;
   }
 }
 
