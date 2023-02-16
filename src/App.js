@@ -31,6 +31,7 @@ const router = createBrowserRouter([
       {
         path: 'tasks',
         element: <TasksRootLayout />,
+        loader: checkAuthLoader,
         children: [
           {
             index: true,
