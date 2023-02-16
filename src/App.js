@@ -9,7 +9,7 @@ import TaskDetailPage, {
 import TasksPage, { loader as tasksLoader } from './pages/Tasks';
 import TasksRootLayout from './pages/TasksRoot';
 import HomePage from './pages/Home';
-import NewTaskPage from './pages/NewTask';
+import NewTaskPage  from './pages/NewTask';
 import RootLayout from './pages/Root';
 import { action as manipulateTaskAction } from './components/TaskForm';
 import AuthenticationPage, {
@@ -17,6 +17,7 @@ import AuthenticationPage, {
 } from './pages/Authentication';
 import { action as logoutAction } from './pages/Logout';
 import { checkAuthLoader, tokenLoader } from './util/auth';
+import {action as NewTaskAction} from './components/NewTaskForm'
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <NewTaskPage />,
-            action: manipulateTaskAction
+            action: NewTaskAction
           },
         ],
       },

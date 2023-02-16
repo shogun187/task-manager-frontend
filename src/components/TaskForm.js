@@ -77,11 +77,11 @@ export async function action({ request, params }) {
   }
 
   const token = getAuthToken();
-  console.log(`token is ${token}`)
   const response = await fetch(url, {
     method: method,
     headers: {
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token,
+      'Content-Type' : 'application/json'
     },
     body: JSON.stringify(taskData),
   });

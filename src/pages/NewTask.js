@@ -1,7 +1,7 @@
-import TaskForm from '../components/TaskForm';
+import NewTaskForm from "../components/NewTaskForm";
 
 function NewTaskPage() {
-  return <TaskForm method="post" />;
+  return <NewTaskForm />;
 }
 
 export default NewTaskPage;
