@@ -6,11 +6,20 @@ import {getAuthToken} from "../util/auth";
 
 function TasksPage() {
   const { tasks } = useLoaderData();
+  function comparator(first, second) {
+      if (first.completed && !second.completed) {
+          return 1
+      }
+      if (!first.completed && second.completed) {
+          return -1
+      }
+      return 0
+  }
 
   return (
     <Suspense fallback={<p style={{ textAlign: 'center' }}>Loading...</p>}>
       <Await resolve={tasks}>
-        {(loadedTasks) => <TasksList tasks={loadedTasks} />}
+        {(loadedTasks) => <TasksList tasks={loadedTasks.sort(comparator)} />}
       </Await>
     </Suspense>
   );

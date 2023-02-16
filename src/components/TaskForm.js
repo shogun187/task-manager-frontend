@@ -10,8 +10,8 @@ import {
 import { getAuthToken } from '../util/auth';
 import classes from './TaskForm.module.css';
 
-function TaskForm({ method, task }) {
-  const data = useActionData();
+function TaskForm({data}) {
+  //const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -22,63 +22,72 @@ function TaskForm({ method, task }) {
   }
 
   return (
-    <Form method={method} className={classes.form}>
-      {data && data.error && <p>Error</p>}
-      <p>
-        <label htmlFor="description">Description</label>
-        <input
-          id="description"
-          type="text"
-          name="description"
-          required
-          defaultValue={task ? task.description : ''}
-        />
-      </p>
-      <p>
-        <label htmlFor="completed">Completed</label>
-        <textarea
-          id="completed"
-          name="completed"
-          rows="5"
-          required
-          defaultValue={task ? task.completed : ''}
-        />
-      </p>
-      <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
-          Cancel
-        </button>
-        <button disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Save'}
-        </button>
-      </div>
-    </Form>
+      <Form method='patch' className={classes.form}>
+        <p>
+          <label htmlFor="description">Description</label>
+          <input
+              id="description"
+              type="text"
+              name="description"
+              defaultValue={data.task.description}
+              required
+          />
+        </p>
+        <div className={classes.check}>
+          <label htmlFor="completed">Completed?</label>
+          <input
+              type='checkbox'
+              id='completed'
+              name='completed'
+              value='true'
+              defaultChecked={data.task.completed}
+
+          />
+        </div>
+        <div className={classes.actions}>
+          <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
+            Cancel
+          </button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Save'}
+          </button>
+        </div>
+      </Form>
   );
 }
 
 export default TaskForm;
 
-export async function action({ request, params }) {
-  const method = request.method;
+export async function action({request, params}) {
+
   const data = await request.formData();
 
-  const taskData = {
-    description: data.get('description'),
-    completed: 'true'
-  };
+  console.log('params', params)
+
+  let taskData;
+
+  console.log(data.get('completed'))
+
+  if (data.get('completed') === 'true') {
+    taskData = {
+      description: data.get('description'),
+      completed: 'true'
+    }
+  } else {
+    taskData = {
+      description: data.get('description'),
+      completed: 'false'
+    }
+  }
 
   console.log(taskData)
 
-  let url = 'https://shaugn-task-manager.herokuapp.com/tasks';
+  let url = 'https://shaugn-task-manager.herokuapp.com/tasks/' + params.taskId;
 
-  if (method === 'PATCH') {
-    const taskId = params.taskId;
-    url = 'https://shaugn-task-manager.herokuapp.com/tasks/' + taskId;
-  }
 
   const token = getAuthToken();
   const response = await fetch(url, {
-    method: method,
+    method: 'PATCH',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type' : 'application/json'

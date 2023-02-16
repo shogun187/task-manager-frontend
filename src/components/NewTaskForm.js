@@ -32,15 +32,10 @@ function NewTaskForm() {
                     required
                 />
             </p>
-            <p>
-                <label htmlFor="completed">Completed</label>
-                <textarea
-                    id="completed"
-                    name="completed"
-                    rows="5"
-                    required
-                />
-            </p>
+            <div className={classes.check}>
+                <label htmlFor="completed">Completed?</label>
+                <input type='checkbox' id='completed' name='completed' value='true'></input>
+            </div>
             <div className={classes.actions}>
                 <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
                     Cancel
@@ -59,10 +54,21 @@ export async function action({ request, params }) {
     const method = request.method;
     const data = await request.formData();
 
-    const taskData = {
-        description: data.get('description'),
-        completed: data.get('completed')
-    };
+    let taskData;
+
+    if (data.get('completed') === 'true') {
+        taskData = {
+            description: data.get('description'),
+            completed: 'true'
+        }
+    } else {
+        taskData = {
+            description: data.get('description'),
+            completed: 'false'
+        }
+    }
+
+
 
     console.log(JSON.stringify(taskData))
 

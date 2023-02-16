@@ -6,8 +6,9 @@
 .form label,
 .form input,
 .form textarea {
-  display: block;
+  display: flex;
   width: 100%;
+  align-items: center;
 }
 
 .form input,
@@ -43,4 +44,15 @@
 
 .actions button[type='button']:hover {
   background-color: var(--color-gray-800);
+}
+
+.check {
+  align-items: center;
+  width: 30%;
+  display: flex;
+}
+
+.check input {
+  height: 25px;
+
 }
